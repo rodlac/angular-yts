@@ -7,7 +7,7 @@
                     <div class="row form-row">
 
                         <label for="keywords">Keywords</label>
-                        <input type="text" ng-change="getMovies(search);" ng-model="search.keywords">
+                        <input type="text" ng-change="getMovies(search);" ng-model="search.query_term">
 
                     </div>
 
@@ -30,21 +30,21 @@
                         <div class="grid-2">
 
                             <label for="rating">Rating</label>
-                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.rating" ng-options="rating.value as rating.label for rating in criteria.rating"></select>
+                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.minimum_rating" ng-options="rating.value as rating.label for rating in criteria.rating"></select>
 
                         </div>
 
                         <div class="grid-2">
 
                             <label for="sort">Sort By</label>
-                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.sort" ng-options="sort.value as sort.label for sort in criteria.sort"></select>
+                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.sort_by" ng-options="sort.value as sort.label for sort in criteria.sort"></select>
 
                         </div>
 
                         <div class="grid-2">
 
                             <label for="order">Order By</label>
-                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.order" ng-options="order.value as order.label for order in criteria.order"></select>
+                            <select custom-select type="text" ng-change="getMovies(search);" ng-model="search.order_by" ng-options="order.value as order.label for order in criteria.order"></select>
 
                         </div>
 
@@ -70,7 +70,7 @@
                                     <span class="quality-label -q{{movie.Quality}}">
                                         <small>{{ movie.Quality }}</small>
                                     </span>
-                                    {{movie.MovieTitleClean}} ({{ movie.MovieYear}})
+                                    {{movie.title}} ({{ movie.year}})
                                 </a>
                             </li>
                         </ul>
@@ -79,7 +79,7 @@
 
                     </div>
 
-                    <div class="grid-6" ng-if="selectedMovie.MovieTitle !== undefined">
+                    <div class="grid-6" ng-if="selectedMovie.title !== undefined">
 
                         <article class="movie-info">
 
@@ -88,7 +88,7 @@
                             </header>
 
                             <div class="movie-thumb">
-                                <img ng-src="{{selectedMovie.CoverImage}}" alt="{{selectedMovie.MovieTitleClean}} - {{selectedMovie.MovieYear}}">
+                                <img ng-src="{{selectedMovie.medium_cover_image}}" alt="{{selectedMovie.title}} - {{selectedMovie.year}}">
 
                                 <p>
                                     <a class="btn" ng-href="{{ selectedMovie.TorrentMagnetUrl }}">Magnet link</a>
@@ -105,12 +105,12 @@
 
                             <div class="movie-details">
                                 <dl class="movie-attributes">
-                                    <dt>Title:</dt> <dd>{{ selectedMovie.MovieTitleClean }}</dd>
-                                    <dt>Year:</dt> <dd>{{ selectedMovie.MovieYear }}</dd>
+                                    <dt>Title:</dt> <dd>{{ selectedMovie.title }}</dd>
+                                    <dt>Year:</dt> <dd>{{ selectedMovie.year }}</dd>
                                     <dt>Quality:</dt> <dd>{{ selectedMovie.Quality }}</dd>
                                     <dt>Size:</dt> <dd>{{ selectedMovie.Size }}</dd>
                                     <dt>Genre:</dt> <dd>{{ selectedMovie.Genre }}</dd>
-                                    <dt>IMDB Rating:</dt> <dd>{{ selectedMovie.MovieRating }}/10</dd>
+                                    <dt>IMDB Rating:</dt> <dd>{{ selectedMovie.rating }}/10</dd>
                                     <dt>IMDB Code:</dt> <dd><a ng-href="{{ selectedMovie.ImdbLink }}" target="_blank">{{ selectedMovie.ImdbCode }}</a></dd>
                                     <dt>YIFY Downloads:</dt> <dd>{{ selectedMovie.Downloaded }}</dd>
                                     <dt>YIFY Peers/Seeds:</dt> <dd>{{ selectedMovie.TorrentPeers }}/{{ selectedMovie.TorrentSeeds }}</dd>
@@ -138,7 +138,7 @@
                                     <span class="quality-label -q{{movie.Quality}}">
                                         <small>{{ movie.Quality }}</small>
                                     </span>
-                                    {{movie.MovieTitleClean}} ({{ movie.MovieYear}})
+                                    {{movie.title}} ({{ movie.year}})
                                 </a>
                             </li>
                         </ul>
@@ -157,7 +157,7 @@
                                     <span class="quality-label -q{{movie.Quality}}">
                                         <small>{{ movie.Quality }}</small>
                                     </span>
-                                    {{movie.MovieTitleClean}} ({{ movie.MovieYear}})
+                                    {{movie.title}} ({{ movie.year}})
                                 </a>
                             </li>
                         </ul>
@@ -172,7 +172,7 @@
 
                         <ul class="movies-list">
                             <li ng-repeat="movie in upcomingMovies">
-                                {{movie.MovieTitle}}
+                                {{movie.title}}
                             </li>
                         </ul>
 

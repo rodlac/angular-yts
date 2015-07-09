@@ -82,9 +82,9 @@ app.controller('MoviesController', [
 
         $scope.search.genre = $scope.criteria.genre[0];
         $scope.search.quality = $scope.criteria.quality[0];
-        $scope.search.rating = $scope.criteria.rating[0].value;
-        $scope.search.sort = $scope.criteria.sort[0].value;
-        $scope.search.order = $scope.criteria.order[0].value;
+        $scope.search.mininum_rating = $scope.criteria.rating[0].value;
+        $scope.search.sort_by = $scope.criteria.sort[0].value;
+        $scope.search.order_by = $scope.criteria.order[0].value;
 
         $scope.pagination = {
             previous: 0,
@@ -101,29 +101,29 @@ app.controller('MoviesController', [
 
         $scope.getMostDownloadedMovies = function() {
             $http.get(
-                'https://yts.re/api/list.json',
+                'http://yts.to/api/v2/list_movies.json',
                 {
                     params: {
-                        sort: 'downloaded'
+                        sort_by: 'download_count'
                     }
                 }
             )
             .success(function(data){
-                $scope.mostDownloaded = data.MovieList;
+                $scope.mostDownloaded = data.data.movies;
             });
         };
 
         $scope.getLatestMovies = function() {
-            $http.get('https://yts.re/api/list.json')
+            $http.get('http://yts.to/api/v2/list_movies.json')
             .success(function(data){
-                $scope.latestMovies = data.MovieList;
+                $scope.latestMovies = data.data.movies;
             });
         };
 
         $scope.getUpcomingMovies = function() {
-            $http.get('https://yts.re/api/upcoming.json')
+            $http.get('http://yts.to/api/v2/list_upcoming.json')
             .success(function(data){
-                $scope.upcomingMovies = data;
+                $scope.upcomingMovies = data.data.upcoming_movies;
             });
         };
 
@@ -142,7 +142,7 @@ app.controller('MoviesController', [
             $scope.apiTimeout = $timeout(function(){
 
                 $http.get(
-                    'https://yts.re/api/list.json',
+                    'http://yts.to/api/v2/list_movies.json',
                     {
                         params: search
                     }
@@ -153,7 +153,7 @@ app.controller('MoviesController', [
                         $scope.emptyResult = data.error;
                         $scope.searchedMovies = [];
                     } else {
-                        $scope.searchedMovies = data.MovieList;
+                        $scope.searchedMovies = data.data.movies;
                     }
 
                 })
@@ -174,12 +174,12 @@ app.controller('MoviesController', [
             $scope.searchedMovies = [];
             $scope.selectedMovie = {};
 
-            $scope.search.keywords = '';
+            $scope.search.query_term = '';
             $scope.search.genre = $scope.criteria.genre[0];
             $scope.search.quality = $scope.criteria.quality[0];
-            $scope.search.rating = $scope.criteria.rating[0].value;
-            $scope.search.sort = $scope.criteria.sort[0].value;
-            $scope.search.order = $scope.criteria.order[0].value;
+            $scope.search.minimum_rating = $scope.criteria.rating[0].value;
+            $scope.search.sort_by = $scope.criteria.sort[0].value;
+            $scope.search.order_by = $scope.criteria.order[0].value;
 
             $scope.emptyResult = null
 
